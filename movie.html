@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <title>你好啊!</title>
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="app.css">
+</head>
+<body ng-app="app">
+    <div class="nav navbar-inverse navbar-fixed-top">
+        <a href="#">
+            <div class="navbar-brand">豆瓣首页</div>
+        </a>
+        <div class="navbar-header">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">电影详情</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 siderbar hidden-xs">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a select-link href="#/in_theaters">正在热映</a></li>
+                    <li class=""><a select-link href="#/coming_soon">即将上映</a></li>
+                    <li class=""><a select-link href="#/top250">Top250</a></li>
+                </ul>
+                <br/>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="你想找些什么电影呢..."/>
+                    <span class="input-group-addon">搜索</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view></div>
+    </div>
+</body>
+<script src="libs/angular/angular.min.js"></script>
+<script src="libs/angular-route/angular-route.min.js"></script>
+<script src="libs/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+<script src="app.js"></script>
+<script src="movie/movie_detail_controller.js"></script>
+<script src="movie/movie_list_controller.js"></script>
+
+</html>
