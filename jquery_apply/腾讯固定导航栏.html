@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .main{
+            width: 1000px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+    </style>
+    <script src="jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var H = $('.top').height();
+            $(window).scroll(function () {
+                var docScrollTop = $(document).scrollTop();
+                if(docScrollTop > H){
+                    $('.nav').css({'position':'fixed','top':0});
+                    $('.main').css('margin-top',106);
+                }else{
+                    $('.nav').css('position','static');
+//                    $('.main').css('margin',20);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="top">
+    <img src="images/防腾讯/top.png" alt=""/>
+</div>
+<div class="nav">
+    <img src="images/防腾讯/nav.png" alt=""/>
+</div>
+<div class="main">
+    <img src="images/防腾讯/main.png" alt=""/>
+</div>
+</body>
+</html>

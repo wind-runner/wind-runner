@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>音乐播放器</title>
+    <script src="jquery-3.1.0.min.js"></script>
+</head>
+<body>
+<div class="music_box" style="width: 800px;height: 400px;border: 1px solid black;margin: 100px auto;position: relative;">
+    <div><img src="4.jpg" alt="" style="width: 800px;height: 370px"/></div>
+    <div class="footer" style="height: 30px;width: 800px;position: absolute;;bottom: 0px">
+        <audio id="song" loop src="">
+            <!--<source src="Carpenters%20-%20Yesterday%20Once%20More.mp3"/>-->
+            <!--<source src="Maria%20Arredondo%20-%20Burning.mp3"/>-->
+            <!--<source src="陈奕迅%20-%20陪你度过漫长岁月.mp3"/>-->
+        </audio>
+        <button id="btn_l" style="color: red;background-color:gold;">上一曲</button>
+        <button id="btn_p" style="color: red;background-color:gold;">播放</button>
+        <button id="btn_r" style="color: red;background-color:gold;">下一曲</button>
+        <button id="btn_j" style="color: red;background-color:gold;">快进</button>
+        <button id="btn_t" style="color: red;background-color:gold;">快退</button>
+        <input id="range_t" type="range" style="width: 280px;margin-left: 10px" value="0"/>
+        <span id="time">00:00/00:00</span>
+        <sapn style="color: chocolate;font: bold 16px/25px 'simsun';margin-left: 10px">音量:</sapn>
+        <input id="range_v" type="range" style="width: 60px"/>
+    </div>
+</div>
+    <script>
+        var arr= ["Maria%20Arredondo%20-%20Burning.mp3",
+            "陈奕迅%20-%20陪你度过漫长岁月.mp3",
+            "Carpenters%20-%20Yesterday%20Once%20More.mp3",
+            "Backstreet Boys - As Long As You Love Me.mp3",
+            "Céline Dion - My Heart Will Go On.mp3",
+            "Deutschland Sucht Den Superstar - Cry On My Shoulder.mp3",
+            "逃跑计划 - 夜空中最亮的星.mp3",
+            "沙宝亮 - 暗香.mp3",
+            "张敬轩 - 断点.mp3",
+            "张宇 - 给你们.mp3" ,
+            "Westlife - My Love.mp3",
+            "Stevie Hoang - Before You Break My Heart.mp3",
+            "Paula DeAnda - Why Would I Ever.mp3",
+            "Michael Learns To Rock - Take Me To Your Heart.mp3",
+            "Maria Arredondo - Burning.mp3",
+            "Lenka - Trouble Is A Friend.mp3",
+            "Justin Bieber、Ludacris - Baby.mp3",
+            "Groove Coverage - She.mp3",
+            "Emilia - Big Big World.mp3"
+        ]
+        var song = $('#song')[0];
+        var index = 0;
+        <!-- 播放与暂停按钮设置-->
+        var flag = true;
+        $("#btn_p").click(function(){
+            if(flag){
+                song.src= arr[index];
+                song.play();
+                $("#btn_p").html("暂停")
+            }else{
+//                song.src= arr[index];
+                song.pause();
+                $("#btn_p").html("播放")
+            }
+            flag = !flag;
+        })
+//        音量设置
+        $("#range_v")[0].oninput = function(){
+            $("#song")[0].volume = this.value/ 100.0;
+        }
+//        音乐进度条
+        setInterval(
+        $("#range_t")[0].onchange = function(){
+
+            $("#range_t")[0].value = $("#song")[0].currentTime / $("#song")[0].duration * 100;
+
+        },1);
+//        $("#btn_j")[0].onclick = function(){
+//            $("#range_t")[0].value = ($("#song")[0].currentTime +100) / $("#song")[0].duration * 100;
+//            console.log($("#range_t")[0].value);
+//        }
+//      音乐进度数字进度
+        var min = 0;
+        var sec = 0;
+        var cmin = 0;
+        var csec = 0;
+        function getTime(){
+            min = parseInt($("#song")[0].duration / 60);
+            sec = parseInt($("#song")[0].duration % 60);
+
+            cmin = parseInt($("#song")[0].currentTime / 60);
+            csec = parseInt($("#song")[0].currentTime % 60);
+
+            if($("#song")[0].currentTime != 0){
+                $("#time").html(prefixZero(cmin,2,0)+ ":" + prefixZero(csec,2,0) + "/" + prefixZero(min,2,0) + ":"　+ prefixZero(sec,2,0));
+            }
+        }
+        setInterval(getTime,1000);
+        function prefixZero(num,n,arg){
+            return (Array(n).join(arg) + num).slice(-n);
+        }
+//      下一首歌曲
+        $("#btn_r").click(function(){
+            if(index == arr.length - 1){
+                index = 0;
+                song.src = arr[index];
+                song.play();
+            }else if(index >= 0 && index <arr.length - 1){
+                index = index + 1;
+                song.src = arr[index];
+                song.play();
+        }
+        })
+//      上一首歌曲
+        $("#btn_l").click(function(){
+            if(index == 0){
+                index = arr.length - 1;
+                song.src = arr[index];
+                song.play();
+            }else if(index > 0 && index <= arr.length - 1){
+                index = index - 1;
+                song.src = arr[index];
+                song.play();
+            }
+        })
+
+    </script>
+</body>
+</html>
+
+

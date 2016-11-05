@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>笨鸟先飞</title>
+    <link rel="stylesheet" href="bootstap/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="bootstap/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css"/>
+    <script src="jquery-3.1/jquery-3.1.0.min.js"></script>
+    <script src="bootstap/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+    <style>
+        header{
+            height: 50px;
+            background: linear-gradient(gray,white);
+        }
+        nav{
+            height: 70px;
+            background: linear-gradient(orange,yellow);
+            margin-top: 10px;
+
+        }
+        section{
+            height: 630px;
+            background-color: darkblue;
+            margin-top: 10px;
+        }
+        footer{
+            height: 30px;
+            background-color: chartreuse;
+            margin-top: 10px;
+        }
+        @keyframes example{
+            from{font-size: 100%}
+            to{font-size: 140%}
+        }
+        h3{
+            color: pink;
+            text-shadow: deeppink 2px 2px 2px;
+            animation: example 2s 1000;
+        }
+    </style>
+</head>
+<body>
+<header class="col-sm-12">
+    <h3 class="col-sm-2">玩,玩个鸟啊!</h3>
+    <button class="btn btn-default col-sm-2 col-sm-push-6" id="signin" data-toggle="modal" data-target="#loginmodal">注册即送个鸟</button>
+    <button class="btn btn-success col-sm-1 col-sm-push-7" id="login">登录</button>
+</header>
+<nav class="col-sm-12 btn-group">
+    <div class="btn-group">
+        <button class="btn btn-default" data-toggle="dropdown">益智游戏<span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li class="dropdown-header">笨鸟游戏</li>
+            <li>小鸟</li>
+            <li>小鸟</li>
+            <li class="divider"></li>
+            <li>小鸟</li>
+        </ul>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-default" data-toggle="dropdown">角色游戏<span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li class="dropdown-header">笨鸟游戏</li>
+            <li>小鸟</li>
+            <li>小鸟</li>
+            <li class="divider"></li>
+            <li>小鸟</li>
+        </ul>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-default" data-toggle="dropdown">射击游戏<span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li class="dropdown-header">笨鸟游戏</li>
+            <li>小鸟</li>
+            <li>小鸟</li>
+            <li class="divider"></li>
+            <li>小鸟</li>
+        </ul>
+    </div>
+    <input type="text" class="col-sm-3 col-sm-push-1" placeholder="请输入您想玩的游戏"/>
+    <button class="btn btn-default col-sm-1 col-sm-push-8">个人中心</button>
+</nav>
+<section class="col-sm-8 col-sm-push-2"  style="padding: 0px">
+    <canvas height="630" width="900" id="canvas"></canvas>
+</section>
+<footer class="col-sm-12"></footer>
+
+<div class="modal" id="loginmodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn btn-default close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">关闭</span>
+                </button>
+                <h4 class="modal-title">欢迎注册陈先生的游戏(交友)网站</h4>
+            </div>
+            <div class="modal-body">
+                <p>请输入注册的用户名</p>
+                <input type="text" placeholder="请尽量输入好听的用户名" id="username">
+                <p>请输入注册的密码</p>
+                <input type="password" placeholder="请随便输" id="pwd">
+                <p id="fsl">请再输入注册的密码</p>
+                <input type="password" placeholder="请和上面一样" id="checkpwd">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" id="btnsure">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var uname = $("#username");
+    var pwd = $("#pwd");
+    var checkpwd = $("#checkpwd");
+    var btnsure = $("#btnsure");
+
+    var expan = document.createElement("span");
+    var exmeter = document.createElement("meter");
+    exmeter.max =10;
+    exmeter.optimum =9;
+    exmeter.low = 3;
+    exmeter.high = 7;
+
+    checkpwd[0].oninput = function(){
+        if(pwd.val() != this.value && this.value.length != 0){
+            expan.innerHTML = "两次不一样";
+
+        }else if(this.value.length != 0){
+            expan.innerHTML = "✅";
+        }
+        this.parentNode.appendChild(expan);
+        if(this.value.length == 0){
+            this.parentNode.removeChild(expan);
+        }
+    };
+    btnsure.click(function(){
+        if(uname.val().length != 0 && pwd.val().length != 0){
+            localStorage.setItem("username",uname.val());
+            localStorage.setItem("password",pwd.val());
+
+            $("#loginmadal").modal("hide");
+            alert("注册成功");
+        }else{
+            alert("用户名不能为空");
+        }
+    });this.
+    pwd[0].oninput = function(){
+        if(this.value.length < 6){
+            exmeter.value = 3;
+        }else if(this.value.length > 6 && value.length < 12){
+            exmeter.value = 7;
+        }else{
+            exmeter.value = 10;
+        }
+        this.parentNode.insertBefore(exmeter,document.getElementById("fsl"));
+        if(this.value.length == 0){
+            this.parentNode.removeChild(exmeter);
+        }
+    }
+</script>
+
+<script>
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+
+    var cheight = 630;
+    var cwidth = 900;
+    var pipeSpace = 200;
+    var tid;
+    var index = 0;
+    var ran = 300;
+    var a =2;
+    var n = 0;
+     function Background(x,y,w,h,src){
+         this.x = x;
+         this.y = y;
+         this.w = w;
+         this.h = h;
+         var img = new Image();
+         img.src = src;
+         this.image = img;
+
+         this.draw = drawBackground;
+     }
+    function drawBackground(){
+        context.drawImage(this.image,this.x,this.y,this.w,this.h);
+    }
+    function Bird(x,y,w,h,images){
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+
+        this.images = images;
+        this.draw = drawBird;
+    }
+    function drawBird(){
+        index++;
+        if(index > 2){
+            index = 0;
+        }
+        var img = new Image();
+        img.src = this.images[index];
+
+        context.drawImage(img,this.x,this.y,this.w,this.h);
+    }
+
+    function UpPipe(x,y,w,h,src){
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+
+        var img = new Image();
+        img.src = src;
+        this.image = img;
+
+        this.draw = drawUpPipe;
+    }
+    function drawUpPipe(){
+        context.drawImage(this.image,161,488,129,802,this.x,this.y,this.w,this.h);
+    }
+
+    function DownPipe(x,y,w,h,src){
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+
+        var img = new Image();
+        img.src = src;
+        this.image = img;
+
+        this.draw = drawDownPipe;
+    }
+    function drawDownPipe(){
+        context.drawImage(this.image,10,477,129,802,this.x,this.y,this.w,this.h);
+    }
+//    ran = Math.min(Math.max(100,Math.random()*300),300);
+    ran = 300;
+    var bg = new Background(0,0,cwidth,cheight,"images5/images/bg.png");
+    var ground = new Background(0,cheight-30,cwidth,30,"images5/images/ground.png");
+    var bird = new Bird(100,400,41,31,["images5/images/0.gif","images5/images/1.gif","images5/images/2.gif"]);
+        var uppipe = new UpPipe(cwidth - 100,0,100,ran,"images5/images/pipe.png");
+    var downPipe = new DownPipe(cwidth - 100,ran+200,100,410-ran,"images5/images/pipe.png");
+    tid = setInterval(drawAll,10);
+
+    function drawAll(){
+        context.clearRect(0,0,cwidth,cheight);
+        bg.draw();
+        ground.draw();
+        bird.draw();
+        uppipe.draw();
+        downPipe.draw();
+        cal();
+
+//        context.fill();
+//        context.fillStyle = "gold";
+//        context.font = "50px microsoft yahei";
+//        context.fillText("你的得分是" + n + "分",300,100);
+    }
+    function cal(){
+        bird.y += 1;
+        uppipe.x -= a;
+        downPipe.x -= a;
+
+        if(uppipe.x + uppipe.w < 0){
+            uppipe.x = cwidth - 100;
+            downPipe.x = cwidth - 100;
+            n ++;
+            a = a + 0.33;
+            console.log(a);
+//            console.log(n);
+
+            ran = Math.min(Math.max(100,Math.random()*300),300);
+            uppipe.h = ran;
+            downPipe.h = 410 - ran;
+            downPipe.y = ran + 200;
+
+//            console.log(ran);
+        }
+        if(bird.y+bird.h >= ground.y || (bird.y + bird.h-2) >= downPipe.y && bird.x + bird.w-4 >= downPipe.x || bird.y-1 <= uppipe.y+uppipe.h && bird.x + bird.w-4>= uppipe.x){
+            clearInterval(tid);
+//            console.log(bird.x);
+//            console.log(downPipe.x);
+            if(bird.x >= downPipe.x + 100){
+                tid = setInterval(drawAll,10);
+            }
+            context.fill();
+            context.fillStyle = "gold";
+            context.font = "50px microsoft yahei";
+            context.fillText("你的得分是" + n + "分",300,100);
+        }
+    }
+    document.onkeypress = function(e){
+        var event = e||window.event;
+        if(e.keyCode == 32){
+            bird.y -= 50;
+        }
+    };
+
+    document.onclick = function(){
+        bird.y = 100;
+        tid = setInterval(drawAll,10);
+    }
+
+</script>
+</body>
+</html>
